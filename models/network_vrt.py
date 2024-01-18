@@ -1030,7 +1030,7 @@ class Stage(nn.Module):
                  drop_path=0.,
                  norm_layer=nn.LayerNorm,
                  pa_frames=2,
-                 deformable_groups=32
+                 deformable_groups=32,
                  reshape=None,
                  max_residue_magnitude=10,
                  use_checkpoint_attn=False,
