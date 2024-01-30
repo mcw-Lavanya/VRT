@@ -178,7 +178,7 @@ def prepare_model_dataset(args):
         args.nonblind_denoising = False
 
     elif args.task in ['003_VRT_videosr_bi_Vimeo_7frames', '004_VRT_videosr_bd_Vimeo_7frames']:
-        model = net(upscale=4, img_size=[8,64,64], window_size=[8,8,8], depths=[8,8,8,8,8,8,8, 4,4,4,4, 4,4],
+        model = net(upscale=4, img_size=[8,64,64], window_size=[8,8,8], depths=[16,16,16,16,16,16,16, 8,8,8,8, 8,8],
                     indep_reconsts=[11,12], embed_dims=[120,120,120,120,120,120,120, 180,180,180,180, 180,180],
                     num_heads=[6,6,6,6,6,6,6, 6,6,6,6, 6,6], pa_frames=4, deformable_groups=16)
         datasets = ['Vid4'] # 'Vimeo'. Vimeo dataset is too large. Please refer to #training to download it.
