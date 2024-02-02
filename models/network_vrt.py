@@ -1364,6 +1364,7 @@ class VRT(nn.Module):
                       use_checkpoint_ffn=use_checkpoint_ffns[i]
                       )
 	    )
+		
         self.stage9 = nn.ModuleList(
 		    [nn.Sequential(
         	    Rearrange('n c d h w ->  n d h w c'),
@@ -1394,10 +1395,7 @@ class VRT(nn.Module):
             		use_checkpoint_attn=use_checkpoint_attns[i],
             		use_checkpoint_ffn=use_checkpoint_ffns[i],
         		)
-    		)		
-            
-	    
-           
+    		)
 
         self.norm = norm_layer(embed_dims[-1])
         self.conv_after_body = nn.Linear(embed_dims[-1], embed_dims[0])
