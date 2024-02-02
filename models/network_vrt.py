@@ -1363,16 +1363,17 @@ class VRT(nn.Module):
                       use_checkpoint_attn=use_checkpoint_attns[i],
                       use_checkpoint_ffn=use_checkpoint_ffns[i]
                       )
-            )
-	    self.stage9 = nn.ModuleList(
-    	    [nn.Sequential(
+	    )
+		
+            self.stage9 = nn.ModuleList(
+		    [nn.Sequential(
         	    Rearrange('n c d h w ->  n d h w c'),
         	    nn.LayerNorm(embed_dims[6]),
         	    nn.Linear(embed_dims[6], embed_dims[7]),
         	    Rearrange('n d h w c -> n c d h w')
    		    )]
 	    )
-	    for i in range(7, len(depths)):
+            for i in range(7, len(depths)):
     		self.stage9.append(
         		Stage(
             		in_dim=embed_dims[i - 1],
