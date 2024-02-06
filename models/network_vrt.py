@@ -1365,37 +1365,7 @@ class VRT(nn.Module):
                       )
 	    )
 		
-        self.stage9 = nn.ModuleList(
-		    [nn.Sequential(
-        	    Rearrange('n c d h w ->  n d h w c'),
-        	    nn.LayerNorm(embed_dims[6]),
-        	    nn.Linear(embed_dims[6], embed_dims[7]),
-        	    Rearrange('n d h w c -> n c d h w')
-   		    )]
-	    )
-        for i in range(7, len(depths)):
-            self.stage9.append(
-        		Stage(
-            		in_dim=embed_dims[i - 1],
-            		dim=embed_dims[i],
-            		input_resolution=(img_size[0], img_size[1] // scales[i], img_size[2] // scales[i]),
-            		depth=depths[i],
-            		num_heads=num_heads[i],
-            		mul_attn_ratio=mul_attn_ratio,
-           		window_size=window_size,
-            		mlp_ratio=mlp_ratio,
-            		qkv_bias=qkv_bias,
-           		qk_scale=qk_scale,
-            		drop_path=dpr[sum(depths[:i]):sum(depths[:i + 1])],
-            		norm_layer=norm_layer,
-            		pa_frames=pa_frames,
-            		deformable_groups=deformable_groups,
-            		reshape=reshapes[i],
-            		max_residue_magnitude=10 / scales[i],
-            		use_checkpoint_attn=use_checkpoint_attns[i],
-            		use_checkpoint_ffn=use_checkpoint_ffns[i],
-        		)
-    		)
+        
 
         self.norm = norm_layer(embed_dims[-1])
         self.conv_after_body = nn.Linear(embed_dims[-1], embed_dims[0])
